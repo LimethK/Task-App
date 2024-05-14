@@ -1,5 +1,6 @@
 package com.example.notessqlite
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,31 +13,31 @@ class UpdateNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateNoteBinding
     private lateinit var db:NoteDatabaseHelper
-    private var noteId : Int = -1
+    private var noteId:Int=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUpdateNoteBinding.inflate(layoutInflater)
-
+        binding=ActivityUpdateNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        db = NoteDatabaseHelper(this)
+        db=NoteDatabaseHelper(this)
 
-        noteId=intent.getIntExtra("noteId",-1)
+        noteId=intent.getIntExtra("note_id",-1)
         if(noteId==-1){
-            finish()
+          finish()
             return
         }
         val note=db.getNoteById(noteId)
-        binding.UpdateTitleEditText.setText(note.title)
-        binding.UpdateContentEditText.setText(note.content)
+       binding.updateTitleEditText.setText(note.title)
+        binding.updateContentEditText.setText(note.content)
 
-        binding.UpdateSaveButton.setOnClickListener {
-            val newTitle = binding.UpdateTitleEditText.text.toString()
-            val newContent = binding.UpdateContentEditText.text.toString()
-            val updatedNote = Note(noteId, newTitle, newContent)
+        binding.updateSaveButton.setOnClickListener {
+            val netTitle=binding.updateTitleEditText.text.toString()
+            val netContent=binding.updateContentEditText.text.toString()
+            val updatedNote=Note(noteId,netTitle,netContent)
             db.updateNote(updatedNote)
             finish()
-            Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Note Updated",Toast.LENGTH_SHORT).show()
+
         }
 
     }
