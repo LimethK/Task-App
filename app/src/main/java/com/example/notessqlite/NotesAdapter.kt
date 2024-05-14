@@ -30,7 +30,7 @@ class NotesAdapter(private var notes: List<Note>,context: Context):
         val note=notes[position]
         holder.titleTextView.text=note.title
         holder.contentTextView.text=note.content
-
+//update
         holder.updateButton.setOnClickListener {
             val intent=Intent(holder.itemView.context,UpdateNoteActivity::class.java).apply {
                 putExtra("note_id",note.id)
